@@ -4,7 +4,7 @@ require 'liquid-proxy/subprocess'
 
 describe LiquidProxy::Subprocess do
   let :child do
-    double.as_null_object
+    double('child').as_null_object
   end
 
   before do
@@ -17,6 +17,7 @@ describe LiquidProxy::Subprocess do
       ChildProcess.should_receive(:build) do |cmd, *params|
         cmd.should =~ %r{bin/liquid-proxy}
         params.should == ["1234"]
+        child
       end
       LiquidProxy::Subprocess.new(opts)
     end
